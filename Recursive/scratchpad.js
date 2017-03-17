@@ -2,6 +2,7 @@ function fibHelper(n) {
     var value;
     var div = document.createElement('div');
     div.setAttribute("class", "fib");
+    n = parseInt(n);
     if (n < 2) {
         if (n === 0) {
             value = 0;
@@ -33,15 +34,36 @@ function fibHelper(n) {
     return { 'value': value, 'html': div };
 }
 var fib = function (n, node) {
+    var div = node.querySelector("div.fib");
+    if(div)
+        node.removeChild(div);
     var tree = fibHelper(n)
     node.appendChild(tree.html);
-    node.setAttribute("id", "fib");
+
+}
+
+var fibButton = function(me)
+{
+    var form = me.parentNode;
+    var slider = form.querySelector('input');
+    var number = slider.value;
+    console.log(number);
+    fib(number, form.parentNode);
+
+}
+
+var fibSlider = function(me)
+{
+    var form = me.parentNode;
+    var button = form.querySelector('button');
+    button.textContent = 'fib(' + me.value + ')';
 }
 
 function tribHelper(n){
     var value;
     var div = document.createElement('div');
     div.setAttribute("class", "trib");
+    n = parseInt(n);
     if (n < 3) {
         if (n === 0) {
             value = 0;
@@ -86,10 +108,28 @@ var trib = function (n, node) {
     node.setAttribute("id", "trib");
 }
 
+var tribButton = function(me)
+{
+    var form = me.parentNode;
+    var slider = form.querySelector('input');
+    var number = slider.value;
+    console.log(number);
+    trib(number, form.parentNode);
+
+}
+
+var tribSlider = function(me)
+{
+    var form = me.parentNode;
+    var button = form.querySelector('button');
+    button.textContent = 'trib(' + me.value + ')';
+}
+
 function pellHelper(n){
     var value;
     var div = document.createElement('div');
     div.setAttribute("class", "pell");
+    n = parseInt(n);
     if (n < 2) {
         if (n === 0) {
             value = 0;
@@ -128,14 +168,26 @@ var pell = function (n, node) {
     node.setAttribute("id", "pell");
 }
 
+var pellButton = function(me)
+{
+    var form = me.parentNode;
+    var slider = form.querySelector('input');
+    var number = slider.value;
+    pell(number, form.parentNode);
+
+}
+
+var pellSlider = function(me)
+{
+    var form = me.parentNode;
+    var button = form.querySelector('button');
+    button.textContent = 'pell(' + me.value + ')';
+}
+
 var style = document.createElement('style');
 style.textContent =
-    "#fib {" +
-    "	display: inline-block;" +
-    "	width: 4000px;" +
-    "}" +
-    "" +
     ".fib {" +
+    "	display: inline-block;" +
     "	background-color: rgba(0,0,255,0.1);" +
     "}" +
     "" +
@@ -338,7 +390,3 @@ var greenDiv = divMakerMaker('green', 'pell');
 blueDiv();
 yellowDiv();
 greenDiv();
-
-trib(11, document.querySelector('.blue'))
-pell(11, document.querySelector('.green'))
-fib(11, document.querySelector('.yellow'))
